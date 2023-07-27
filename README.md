@@ -1,16 +1,15 @@
-# privacy_screen
+## Welcome to the Dart side! 😈
 
-A new Flutter project.
+In this app, you can do all the Dart things like Custom Paint, Animation, ShaderMask, and so on and still not get caught. 😈
 
-## Getting Started
+No stranger can take screenshots or record videos or view your Dart secrets in the recent apps.
 
-This project is a starting point for a Flutter application.
+** I have to record my app from another device because a screen recorder was also not allowed when the secure mode was on.
 
-A few resources to get you started if this is your first Flutter project:
+Here is the APK: [TOUCH ME!!](https://drive.google.com/file/d/132uOrSJIwJCRDkqS3bRYYxt8z0VezHH2/view)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+All credit goes to this article for teaching me how to do so:  [TOUCH ME!!](https://articles.wesionary.team/securing-your-flutter-app-implementing-a-privacy-screen-61383ce09f0a)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Video Demonstration: [TOUCH ME!](https://drive.google.com/file/d/1lXs-jpZiNWD38hnlXWBiNER-HhISJpIx/view?usp=sharing)
+
+Even Video Recording gets blocked: [TOUCH ME!](https://drive.google.com/file/d/1NzDeTP8YQ922hesxy7_rws5Gi-P9exhy/view?usp=sharing)
