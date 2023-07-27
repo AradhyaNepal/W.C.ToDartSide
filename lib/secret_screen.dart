@@ -60,106 +60,120 @@ class _SecretScreenState extends State<SecretScreen>
     );
   }
 
+  PointerMoveEvent? pointerMoveEvent;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: colorTwo,
-          title: Text(
-            _isSecure ? "Is Secure" : "Is Not Secure",
-          ),
-          actions: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.5),
-                shape: BoxShape.circle,
-              ),
-              child: _isSecureLoading
-                  ? const CircularProgressIndicator()
-                  : IconButton(
-                      onPressed: () async {
-                        setState(() {
-                          _isSecureLoading = true;
-                        });
-                        if (_isSecure) {
-                          await AppScreenPrivacyService()
-                              .disableScreenPrivacy();
-                        } else {
-                          await AppScreenPrivacyService().enableScreenPrivacy();
-                        }
-                        setState(() {
-                          _isSecureLoading = false;
-                          _isSecure = !_isSecure;
-                        });
-                      },
-                      icon: Icon(
-                        _isSecure ? Icons.sports_gymnastics : Icons.security,
-                        color: colorOne,
-                      ),
-                    ),
+    return Listener(
+      onPointerMove: (moveDetails){
+        setState(() {
+          pointerMoveEvent=moveDetails;
+        });
+      },
+      onPointerUp: (_){
+        setState(() {
+          pointerMoveEvent=null;
+        });
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: colorTwo,
+            title: Text(
+              _isSecure ? "Is Secure" : "Is Not Secure",
             ),
-          ],
-        ),
-        backgroundColor: backgroundColor,
-        body: SizedBox(
-          height: size.height,
-          width: size.width,
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(bottom: 100),
-                  child: CustomPaint(
-                    painter: EyeCustomPaint(),
+            actions: [
+              Container(
+                margin: const EdgeInsets.only(right: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.5),
+                  shape: BoxShape.circle,
+                ),
+                child: _isSecureLoading
+                    ? const CircularProgressIndicator()
+                    : IconButton(
+                        onPressed: () async {
+                          setState(() {
+                            _isSecureLoading = true;
+                          });
+                          if (_isSecure) {
+                            await AppScreenPrivacyService()
+                                .disableScreenPrivacy();
+                          } else {
+                            await AppScreenPrivacyService().enableScreenPrivacy();
+                          }
+                          setState(() {
+                            _isSecureLoading = false;
+                            _isSecure = !_isSecure;
+                          });
+                        },
+                        icon: Icon(
+                          _isSecure ? Icons.sports_gymnastics : Icons.security,
+                          color: colorOne,
+                        ),
+                      ),
+              ),
+            ],
+          ),
+          backgroundColor: backgroundColor,
+          body: SizedBox(
+            height: size.height,
+            width: size.width,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Transform.translate(
+                    offset: const Offset(0,-100),
                     child: SizedBox(
                       height: 200,
                       width: size.width * 0.75,
+                      child: CustomPaint(
+                        painter: EyeCustomPaint(pointerMoveEvent),
+                      ),
                     ),
                   ),
-                ),
-                ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return RadialGradient(
-                      center: Alignment.topLeft,
-                      radius: 1.0,
-                      colors: <Color>[
-                        colorOne,
-                        colorTwo,
-                        colorOne,
-                        colorTwo,
-                      ],
-                      tileMode: TileMode.mirror,
-                    ).createShader(bounds);
-                  },
-                  child: const Text(
-                    "Welcome to the\nDart Side!",
+                  ShaderMask(
+                    shaderCallback: (Rect bounds) {
+                      return RadialGradient(
+                        center: Alignment.topLeft,
+                        radius: 1.0,
+                        colors: <Color>[
+                          colorOne,
+                          colorTwo,
+                          colorOne,
+                          colorTwo,
+                        ],
+                        tileMode: TileMode.mirror,
+                      ).createShader(bounds);
+                    },
+                    child: const Text(
+                      "Welcome to the\nDart Side!",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 40,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    "This is very private place.\n"
+                    "If someone else founds you here,"
+                    "\nThen they will directly call police.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      color: colorOne,
                       fontWeight: FontWeight.bold,
-                      fontSize: 40,
-                      color: Colors.white,
+                      fontSize: 20,
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  "This is very private place.\n"
-                  "If someone else founds you here,"
-                  "\nThen they will directly call police.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: colorOne,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
