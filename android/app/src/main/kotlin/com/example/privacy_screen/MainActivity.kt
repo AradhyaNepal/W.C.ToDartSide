@@ -30,7 +30,8 @@ class MainActivity: FlutterActivity() {
     }
 
     private fun enableAppSecurity() {
-        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE
+            , WindowManager.LayoutParams.FLAG_SECURE)
     }
 
     private fun disableAppSecurity() {
