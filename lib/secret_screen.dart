@@ -13,7 +13,7 @@ class _SecretScreenState extends State<SecretScreen>
     with SingleTickerProviderStateMixin {
   bool _isSecure = true;
   bool _isSecureLoading = false;
-  late final AnimationController _textShaderAnimation;
+  late final AnimationController _animationController;
   late final Animation<Color?> _colorOne;
 
   Color get colorOne => _colorOne.value ?? Colors.white;
@@ -27,7 +27,7 @@ class _SecretScreenState extends State<SecretScreen>
   @override
   void initState() {
     super.initState();
-    _textShaderAnimation = AnimationController(
+    _animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 3),
     )
@@ -37,13 +37,13 @@ class _SecretScreenState extends State<SecretScreen>
       });
     _colorOne = ColorTween(begin: Colors.blue, end: Colors.red).animate(
       CurvedAnimation(
-        parent: _textShaderAnimation,
+        parent: _animationController,
         curve: Curves.bounceOut,
       ),
     );
     _colorTwo = ColorTween(begin: Colors.green, end: Colors.purple).animate(
       CurvedAnimation(
-        parent: _textShaderAnimation,
+        parent: _animationController,
         curve: Curves.bounceIn,
       ),
     );
@@ -51,7 +51,7 @@ class _SecretScreenState extends State<SecretScreen>
         ColorTween(end: Colors.yellow.shade100, begin: Colors.blue.shade100)
             .animate(
       CurvedAnimation(
-        parent: _textShaderAnimation,
+        parent: _animationController,
         curve: const Interval(
           0.25,
           0.75,
@@ -179,5 +179,10 @@ class _SecretScreenState extends State<SecretScreen>
         ),
       ),
     );
+  }
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 }
